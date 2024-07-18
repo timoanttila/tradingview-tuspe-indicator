@@ -1,6 +1,6 @@
 # Tuspe Special Mix v1.0
 
-The script is designed for use on [TradingView](https://www.tradingview.com/), a popular platform for traders to perform technical analysis and execute trades. This script combines three technical analysis tools: previous daily high and low, [exponential moving averages (EMAs)](https://www.investopedia.com/terms/m/movingaverage.asp), and [inside bar patterns](https://www.tradingheroes.com/inside-bar-pattern-explained/).
+The script is designed for use on [TradingView](https://www.tradingview.com/), a popular platform for traders to perform technical analysis and execute trades. This script combines four technical analysis tools: previous daily high and low, volume, [exponential moving averages (EMAs)](https://www.investopedia.com/terms/m/movingaverage.asp), and [inside bar patterns](https://www.tradingheroes.com/inside-bar-pattern-explained/).
 
 The previous daily high and low provide key support and resistance levels, crucial for understanding potential price reversals or breakouts. Moving averages help identify trend direction, while inside bar patterns signal potential price consolidation and breakout points.
 
@@ -62,7 +62,22 @@ When the price moves between the previous day's high and low, traders can use th
 
 Setting stop-loss orders just below the previous day's low for long positions or just above the previous day's high for short positions can help manage risk. This ensures that if the price moves against the position, losses are minimized.
 
-
 ### Example video
 
 [![Breakout trading example](https://img.youtube.com/vi_webp/LpXJv8E1MJk/sddefault.webp)](https://www.youtube.com/watch?v=LpXJv8E1MJk)
+
+## Volume Colors for High Volume Candles
+
+Color-coded volume candles provide traders with enhanced visual clarity, allowing them to quickly identify market sentiment and momentum. By using different colors for bullish and bearish candles, traders can instantly discern whether the market activity is predominantly buying or selling, without having to analyze numerical volume data. This immediate recognition aids in making more informed and timely trading decisions.
+
+## Alerts
+
+The script includes several alert conditions to notify traders of key events:
+
+**Previous Day High/Low Breakout**: An alert is triggered when the price breaks above the previous day's high or below the previous day's low, indicating a potential breakout.
+
+**Inside Bar Formation**: An alert is triggered when a new inside bar pattern is identified, signaling a potential consolidation or breakout.
+
+**High Volume Candle**: An alert is triggered when the volume exceeds a specified threshold, highlighting significant market activity.
+
+These alerts help traders stay informed of important market movements and make timely trading decisions.
