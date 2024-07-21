@@ -8,7 +8,7 @@ Since TradingView only offers two indicators for free users, I combined the stra
 
 The script is made and managed by [Timo Anttila](https://timoanttila.com/). The script is free to use and modify, but please let's update this script together instead of creating a new one. If you have any suggestions or improvements, please let me know.
 
-![3 Moving Averages and Inside Bar on TradingView](assets/ema-ib.png)
+![3 Moving Averages, previous daily high/low, volume bars, and Inside Bar on TradingView](assets/US30-20240721.png)
 
 ## Exponential Moving Average (EMA)
 
