@@ -1,27 +1,30 @@
 //@version=5
 indicator("Tuspe Special Mix", shorttitle="Tuspe", overlay=true)
 
-//-----------------------------------------------------------------------------
+//------------------
 // Input settings
-//-----------------------------------------------------------------------------
+//------------------
 
 // Moving Averages Lengths
 ma_type = input.string("EMA", "MA Type", options = ["SMA", "EMA"], group = "Moving Averages")
-fast_length = input.int(20, "Fast MA Length", group = "Moving Averages")
-medium_length = input.int(50, "Medium MA Length", group = "Moving Averages")
-slow_length = input.int(200, "Slow MA Length", group = "Moving Averages")
+fast_length = input.int(10, "Fast MA Length", group = "Moving Averages")
+medium_length = input.int(20, "Medium MA Length", group = "Moving Averages")
+slow_length = input.int(40, "Slow MA Length", group = "Moving Averages")
 
 // Previous day
 show_pdhl = input(true, "Show Previous Day High/Low", group = "Highs & Lows")
+
+// Inside Bar
+show_inside_bar = input(true, "Show Inside Bar", group = "Inside Bar")
 
 // Volume Threshold Input
 show_volume_candles = input(true, "Show Volume Candles", group = "Volume")
 volume_threshold_input = input.int(30, "Volume Threshold (in thousands)", group = "Volume")
 volume_threshold = volume_threshold_input * 1000
 
-//-----------------------------------------------------------------------------
+//------------------
 // Functions
-//-----------------------------------------------------------------------------
+//------------------
 hl() => [high, low]
 
 phl(h, l, tf, css)=>
@@ -49,9 +52,9 @@ phl(h, l, tf, css)=>
         line.set_xy2(low_line, ext, ly)
         label.set_xy(low_lbl, ext, ly)
 
-//-----------------------------------------------------------------------------
+//------------------
 // Moving Averages
-//-----------------------------------------------------------------------------
+//------------------
 ma(src, length, type) =>
     if type == "SMA"
         ta.sma(src, length)
@@ -66,9 +69,9 @@ plot(fast_ma, color=color.new(color.yellow, 0), linewidth=2, title="Fast MA")
 plot(medium_ma, color=color.new(color.orange, 25), linewidth=1, title="Medium MA")
 plot(slow_ma, color=color.new(#add8e6, 25), linewidth=3, title="Slow MA")
 
-//-----------------------------------------------------------------------------
+//------------------
 // Previous day high/low
-//-----------------------------------------------------------------------------
+//------------------
 [pdh, pdl] = request.security(syminfo.tickerid, 'D', hl(), lookahead = barmerge.lookahead_on)
 
 pdhl_css = input.color(color.new(color.green, 40), "Previous Day Line Color", group = "Highs & Lows")
@@ -85,39 +88,18 @@ if (dayofweek(time) != dayofweek(time[1]))
 if show_pdhl
     phl(prev_day_high, prev_day_low, 'D', pdhl_css)
 
-// Alert for Previous Day High/Low
-alertcondition(close > prev_day_high or close < prev_day_low, "Price Breaks Previous Day High/Low", "Price has broken the previous day's high or low.")
-
-//-----------------------------------------------------------------------------
+//------------------
 // Inside Bar
-//-----------------------------------------------------------------------------
+//------------------
 is_inside_bar = (high < high[1]) and (low > low[1])
 
-// Change bar color if it's an Inside Bar
-// Remove the line below to remove bar color setting
-// barcolor(is_inside_bar ? color.new(color.orange, 0) : na)
-
-// Alert for Inside Bar
-alertcondition(is_inside_bar, title="Inside Bar Alert", message="New Inside Bar spotted")
-
-// Trigger alert only at the close of the inside bar
-if is_inside_bar and barstate.isconfirmed
-    alert("New Inside Bar spotted", alert.freq_once_per_bar_close)
-
-//-----------------------------------------------------------------------------
-// Volume-based candle color and alert
-//-----------------------------------------------------------------------------
-
-bearish_volume_color = color.new(color.red, 0)
-bullish_volume_color = color.new(color.green, 0)
-
-// Determine the color based on the volume and the show_volume_candles flag
-var color candle_color = na
-if show_volume_candles
-    candle_color := volume >= volume_threshold ? (close >= open ? bullish_volume_color : bearish_volume_color) : na
-
 // Apply the determined color
-barcolor(candle_color)
+var color final_candle_color = na
+if show_inside_bar and is_inside_bar
+    final_candle_color := color.new(color.yellow, 0)
+else if show_volume_candles and volume >= volume_threshold
+    final_candle_color := close >= open ? color.new(color.green, 0) : color.new(color.red, 0)
+else
+    final_candle_color := na
 
-// Alert for High Volume
-alertcondition(volume >= volume_threshold, title="High Volume Alert", message="Volume has exceeded the threshold.")
+barcolor(final_candle_color)

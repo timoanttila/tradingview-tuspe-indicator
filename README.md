@@ -69,15 +69,3 @@ Setting stop-loss orders just below the previous day's low for long positions or
 ## Volume Colors for High Volume Candles
 
 Color-coded volume candles provide traders with enhanced visual clarity, allowing them to quickly identify market sentiment and momentum. By using different colors for bullish and bearish candles, traders can instantly discern whether the market activity is predominantly buying or selling, without having to analyze numerical volume data. This immediate recognition aids in making more informed and timely trading decisions.
-
-## Alerts
-
-The script includes several alert conditions to notify traders of key events:
-
-**Previous Day High/Low Breakout**: An alert is triggered when the price breaks above the previous day's high or below the previous day's low, indicating a potential breakout.
-
-**Inside Bar Formation**: An alert is triggered when a new inside bar pattern is identified, signaling a potential consolidation or breakout.
-
-**High Volume Candle**: An alert is triggered when the volume exceeds a specified threshold, highlighting significant market activity.
-
-These alerts help traders stay informed of important market movements and make timely trading decisions.
