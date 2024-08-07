@@ -6,7 +6,7 @@ indicator("Tuspe Special Mix", shorttitle="Tuspe", overlay=true)
 //------------------
 
 // Moving Averages Lengths
-ma_type = input.string("EMA", "MA Type", options = ["SMA", "EMA"], group = "Moving Averages")
+ma_type = input.string("SMA", "MA Type", options = ["SMA", "EMA"], group = "Moving Averages")
 fast_length = input.int(10, "Fast MA Length", group = "Moving Averages")
 medium_length = input.int(20, "Medium MA Length", group = "Moving Averages")
 slow_length = input.int(40, "Slow MA Length", group = "Moving Averages")
